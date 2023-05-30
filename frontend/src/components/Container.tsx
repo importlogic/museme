@@ -1,4 +1,4 @@
-const Container = (props) => {
+const Container = (props: any) => {
     const classes = props.className;
 
     return (
