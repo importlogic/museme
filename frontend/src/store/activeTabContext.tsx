@@ -2,17 +2,21 @@ import { createContext, useState } from 'react';
 
 const activeTabContext = createContext({
     activeTab: 'home',
-    setActiveTab: undefined
+    setActiveTab: (activeTab: string) => {activeTab}
 });
 
-export const ActiveTabWrapper = (props) => {
+interface propsInterface {
+    children: React.ReactNode
+}
+
+export const ActiveTabWrapper = (props: propsInterface) => {
     const [activeTab, setActiveTab] = useState('home');
 
     return (
         <activeTabContext.Provider
             value={{
                 activeTab,
-                setActiveTab
+                setActiveTab,
             }}
         >
             {props.children}
