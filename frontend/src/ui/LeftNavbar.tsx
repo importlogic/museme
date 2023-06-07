@@ -21,7 +21,7 @@ const LeftNavbar = () => {
     ]);
 
     return (
-        <Container className='grid justify-end'>
+        <Container className='grid'>
             <ul>
                 {[
                     navBarButtons.map((item) => {
@@ -35,7 +35,6 @@ const LeftNavbar = () => {
                                     onClick={() => {
                                         activeTab.setActiveTab(item);
                                     }}
-
                                     className={`relative mr-4 mt-8 text-center text-sm font-semibold hover:cursor-pointer hover:text-blue-500 ${
                                         activeTab.activeTab == item
                                             ? 'text-blue-500'

@@ -40,25 +40,27 @@ const Feed = () => {
 
     return (
         <>
-            <Container className=''>
-                <ul>
-                    {[
-                        postDetails.map((post) => {
-                            return (
-                                <li key={post.key}>
-                                    <Container>
-                                        <Post postDetails={post}></Post>
-                                    </Container>
-                                </li>
-                            );
-                        }),
-                    ]}
-                </ul>
-            </Container>
-            <Container className='mt-5 mb-2 flex justify-center'>
-                    <button className='rounded-xl bg-blue-500 p-2 px-5 text-white outline-none duration-500 ease-in-out hover:bg-indigo-600 '>
-                        Load More
-                    </button>
+            <Container className='flex flex-col'>
+                <Container className='flex-grow'>
+                    <ul>
+                        {[
+                            postDetails.map((post) => {
+                                return (
+                                    <li key={post.key}>
+                                        <Container>
+                                            <Post postDetails={post}></Post>
+                                        </Container>
+                                    </li>
+                                );
+                            }),
+                        ]}
+                    </ul>
+                </Container>
+                <Container className='mt-5 mb-2 flex justify-center flex-grow'>
+                        <button className='rounded-xl bg-blue-500 p-2 px-5 text-white outline-none duration-500 ease-in-out hover:bg-indigo-600 '>
+                            Load More
+                        </button>
+                </Container>
             </Container>
         </>
     );
