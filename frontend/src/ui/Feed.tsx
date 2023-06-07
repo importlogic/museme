@@ -12,7 +12,10 @@ const Feed = () => {
             media: '',
             likes: 20,
             likedByUser: true,
-            userComments: [{'user': 'user1', 'comment': 'amazing post'}, {'user': 'user2', 'comment': 'very nice'}],
+            userComments: [
+                { user: 'user1', comment: 'amazing post' },
+                { user: 'user2', comment: 'very nice' },
+            ],
         },
         {
             key: '1',
@@ -23,7 +26,10 @@ const Feed = () => {
             media: '',
             likes: 1000,
             likedByUser: false,
-            userComments: [{'user': 'user1', 'comment': 'amazing post'}, {'user': 'user2', 'comment': 'very nice'}],
+            userComments: [
+                { user: 'user1', comment: 'amazing post' },
+                { user: 'user2', comment: 'very nice' },
+            ],
         },
         {
             key: '2',
@@ -34,33 +40,34 @@ const Feed = () => {
             media: '',
             likes: 20,
             likedByUser: true,
-            userComments: [{'user': 'user1', 'comment': 'amazing post'}, {'user': 'user2', 'comment': 'very nice'}],
+            userComments: [
+                { user: 'user1', comment: 'amazing post' },
+                { user: 'user2', comment: 'very nice' },
+            ],
         },
     ];
 
     return (
         <>
-            <Container className='flex flex-col'>
-                <Container className='flex-grow'>
-                    <ul>
-                        {[
-                            postDetails.map((post) => {
-                                return (
-                                    <li key={post.key}>
-                                        <Container>
-                                            <Post postDetails={post}></Post>
-                                        </Container>
-                                    </li>
-                                );
-                            }),
-                        ]}
-                    </ul>
-                </Container>
-                <Container className='mt-5 mb-2 flex justify-center flex-grow'>
-                        <button className='rounded-xl bg-blue-500 p-2 px-5 text-white outline-none duration-500 ease-in-out hover:bg-indigo-600 '>
-                            Load More
-                        </button>
-                </Container>
+            <Container className=''>
+                <ul>
+                    {[
+                        postDetails.map((post) => {
+                            return (
+                                <li key={post.key}>
+                                    <Container>
+                                        <Post postDetails={post}></Post>
+                                    </Container>
+                                </li>
+                            );
+                        }),
+                    ]}
+                </ul>
+            </Container>
+            <Container className='mb-2 mt-5 flex flex-grow justify-center'>
+                <button className='rounded-xl bg-blue-500 p-2 px-5 text-white outline-none duration-500 ease-in-out hover:bg-indigo-600 '>
+                    Load More
+                </button>
             </Container>
         </>
     );
