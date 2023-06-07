@@ -7,6 +7,9 @@ interface propsInterface {
 }
 
 const ProfilePage = (props: propsInterface) => {
+    const username = props.username;
+    console.log(username);
+    
     return (
         <>
             <Container className='mt-5 flex select-none'>
