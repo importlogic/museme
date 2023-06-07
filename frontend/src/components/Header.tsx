@@ -56,7 +56,7 @@ const Header = () => {
             <Container className='w-full border-b-2 px-8 py-6 dark:border-gray-600'>
                 <div className='grid grid-cols-3'>
                     <h1
-                        className='font-regular text-3xl text-black duration-300 ease-in-out hover:cursor-pointer hover:tracking-[1.5rem] dark:text-white'
+                        className='select-none ml-10 font-regular text-3xl text-black duration-300 ease-in-out hover:cursor-pointer hover:tracking-[1.5rem] dark:text-white'
                         onClick={() => {
                             activeTab.setActiveTab('home');
                         }}

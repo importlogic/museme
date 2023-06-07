@@ -1,6 +1,13 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+
+import Container from './Container';
+
 interface propsInterface {
     id: string;
     children: React.ReactNode;
+    heading: string;
+    utilityClasses?: string;
 }
 
 const Modal = (props: propsInterface) => {
@@ -8,16 +15,17 @@ const Modal = (props: propsInterface) => {
 
     return (
         <>
-            <dialog id={id} className='modal'>
-                <form method='dialog' className='modal-box'>
-                    <button className='btn-ghost btn-sm btn-circle btn absolute right-2 top-2'>
-                        ✕
-                    </button>
-                    <h3 className='text-lg font-bold'>{props.children}</h3>
-                    <p className='py-4'>
-                        Press ESC key or click on ✕ button to close
-                    </p>
-                </form>
+            <dialog id={id} className='modal backdrop-blur-sm'>
+                <Container className={`modal-box ${props.utilityClasses}`}>
+                    <form method='dialog' className='flex text-xl'>
+                        <button className='outline-none'><FontAwesomeIcon icon={faArrowLeft}/></button>
+                        <p className='ml-5'>{props.heading}</p>
+                    </form>
+                    <Container className='mt-5'>
+                        {props.children}
+                    </Container>
+                </Container>
+                
                 <form method='dialog' className='modal-backdrop'>
                     <button></button>
                 </form>

@@ -12,7 +12,7 @@ const Feed = () => {
             media: '',
             likes: 20,
             likedByUser: true,
-            comments: ['amazing post', 'very nice'],
+            userComments: [{'user': 'user1', 'comment': 'amazing post'}, {'user': 'user2', 'comment': 'very nice'}],
         },
         {
             key: '1',
@@ -23,7 +23,7 @@ const Feed = () => {
             media: '',
             likes: 1000,
             likedByUser: false,
-            comments: ['amazing post', 'very nice'],
+            userComments: [{'user': 'user1', 'comment': 'amazing post'}, {'user': 'user2', 'comment': 'very nice'}],
         },
         {
             key: '2',
@@ -34,7 +34,7 @@ const Feed = () => {
             media: '',
             likes: 20,
             likedByUser: true,
-            comments: ['amazing post', 'very nice'],
+            userComments: [{'user': 'user1', 'comment': 'amazing post'}, {'user': 'user2', 'comment': 'very nice'}],
         },
     ];
 
@@ -46,7 +46,7 @@ const Feed = () => {
                         postDetails.map((post) => {
                             return (
                                 <li key={post.key}>
-                                    <Container className='p-2'>
+                                    <Container>
                                         <Post postDetails={post}></Post>
                                     </Container>
                                 </li>
@@ -55,7 +55,7 @@ const Feed = () => {
                     ]}
                 </ul>
             </Container>
-            <Container className='m-5 flex justify-center'>
+            <Container className='mt-5 mb-2 flex justify-center'>
                     <button className='rounded-xl bg-blue-500 p-2 px-5 text-white outline-none duration-500 ease-in-out hover:bg-indigo-600 '>
                         Load More
                     </button>
