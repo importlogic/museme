@@ -41,13 +41,13 @@ const Post = (props: propsInterface) => {
                 <Comments userComments={props.postDetails.userComments}></Comments>
             </Modal>
 
-            <Container className='grid grid-cols-12 border-gray border-b-2 dark:border-gray-600'>
-                <Container className='col-span-1 mt-[.70rem] flex justify-end mr-1'>
+            <Container className='flex border-b-2 dark:border-gray-600'>
+                <Container className='mt-[.70rem] flex justify-end mr-1'>
                     <Container className='h-10 w-10 rounded-full overflow-hidden'>
                         <img src={testimage} className='object-cover h-10 w-10'></img>
                     </Container>
                 </Container>
-                <Container className='col-span-11'>
+                <Container className='flex-grow'>
                     <Container className='rounded-lg p-2'>
                         <Container className='flex items-center space-x-5 dark:text-white'>
                             <p>{props.postDetails.owner}</p>
@@ -86,16 +86,9 @@ const Post = (props: propsInterface) => {
                             </Container>
                             <Container
                                 onClick={() => {
-                                    const myModal = document.querySelector(
-                                        `#comment_${props.postDetails.key}`
-                                    );
+                                    const myModal = document.querySelector(`#comment_${props.postDetails.key}`) as HTMLDialogElement;
 
-                                    if (
-                                        myModal != null &&
-                                        myModal instanceof HTMLDialogElement
-                                    ) {
-                                        myModal.showModal();
-                                    }
+                                    myModal.showModal();
                                 }}
                                 className='flex items-center space-x-2 rounded-3xl p-2 hover:cursor-pointer hover:bg-gray-200 dark:hover:bg-white dark:hover:text-black'
                             >

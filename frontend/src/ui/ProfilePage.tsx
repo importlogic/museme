@@ -2,12 +2,12 @@ import Feed from '../ui/Feed.tsx';
 import Container from '../components/Container.tsx';
 import testimage from '../assets/dp.jpeg';
 
-interface propsInterface {
-    username: string;
-}
+import { useParams } from 'react-router-dom';
 
-const ProfilePage = (props: propsInterface) => {
-    const username = props.username;
+const ProfilePage = () => {
+    const param = useParams();
+    let username = param.username;
+
     console.log(username);
     
     return (

@@ -1,8 +1,7 @@
-interface propsInterface{
-    active: number,
-    onClick: () => void,
-    children: React.ReactNode,
-    className?: string,
+interface propsInterface {
+    active: number;
+    children: React.ReactNode;
+    className?: string;
 }
 
 const HeaderButton = (props: propsInterface) => {
@@ -15,8 +14,7 @@ const HeaderButton = (props: propsInterface) => {
 
     return (
         <button
-            className={`${bg} rounded-full h-10 w-10 mx-2 outline-none ${classes}`}
-            onClick={props.onClick}
+            className={`${bg} mx-2 h-10 w-10 rounded-full outline-none ${classes}`}
         >
             {props.children}
         </button>

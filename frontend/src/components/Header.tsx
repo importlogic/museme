@@ -11,6 +11,7 @@ import activeThemeContext from '../store/activeThemeContext.tsx';
 import HeaderButton from './HeaderButton.tsx';
 
 import { useRef, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     const searchBar = useRef<HTMLInputElement>(null);
@@ -55,14 +56,12 @@ const Header = () => {
         <>
             <Container className='w-full border-b-2 px-8 py-6 dark:border-gray-600'>
                 <div className='grid grid-cols-3'>
-                    <h1
-                        className='select-none ml-10 font-regular text-3xl text-black duration-300 ease-in-out hover:cursor-pointer hover:tracking-[1.5rem] dark:text-white'
-                        onClick={() => {
-                            activeTab.setActiveTab('home');
-                        }}
+                    <Link
+                        to='/home'
+                        className='font-regular ml-10 select-none text-3xl text-black duration-300 ease-in-out hover:cursor-pointer hover:tracking-[1.5rem] dark:text-white'
                     >
                         museme
-                    </h1>
+                    </Link>
                     <div className='flex rounded-lg bg-[#f4f5fa] dark:bg-[#3b3b3b]'>
                         <SearchIcon className='m-2 dark:text-white'></SearchIcon>
                         <input
@@ -94,44 +93,41 @@ const Header = () => {
 
                                     return (
                                         <li key={`${item}`}>
-                                            <HeaderButton
-                                                active={active}
-                                                onClick={() => {
-                                                    activeTab.setActiveTab(
-                                                        item
-                                                    );
-                                                }}
-                                                className='relative'
-                                            >
-                                                {item == 'profile' &&
-                                                    active == 0 && (
-                                                        <AccountCircleOutlinedIcon
-                                                            fontSize='medium'
-                                                            className='dark:text-gray-300'
-                                                        ></AccountCircleOutlinedIcon>
-                                                    )}
-                                                {item == 'profile' &&
-                                                    active == 1 && (
-                                                        <AccountCircleIcon
-                                                            fontSize='medium'
-                                                            className='text-white'
-                                                        ></AccountCircleIcon>
-                                                    )}
-                                                {item == 'notifications' &&
-                                                    active == 0 && (
-                                                        <NotificationsNoneOutlinedIcon
-                                                            fontSize='medium'
-                                                            className='dark:text-gray-300'
-                                                        ></NotificationsNoneOutlinedIcon>
-                                                    )}
-                                                {item == 'notifications' &&
-                                                    active == 1 && (
-                                                        <NotificationsIcon
-                                                            fontSize='medium'
-                                                            className='text-white'
-                                                        ></NotificationsIcon>
-                                                    )}
-                                            </HeaderButton>
+                                            <Link to={`/${item}`}>
+                                                <HeaderButton
+                                                    active={active}
+                                                    className='relative'
+                                                >
+                                                    {item == 'profile' &&
+                                                        active == 0 && (
+                                                            <AccountCircleOutlinedIcon
+                                                                fontSize='medium'
+                                                                className='dark:text-gray-300'
+                                                            ></AccountCircleOutlinedIcon>
+                                                        )}
+                                                    {item == 'profile' &&
+                                                        active == 1 && (
+                                                            <AccountCircleIcon
+                                                                fontSize='medium'
+                                                                className='text-white'
+                                                            ></AccountCircleIcon>
+                                                        )}
+                                                    {item == 'notifications' &&
+                                                        active == 0 && (
+                                                            <NotificationsNoneOutlinedIcon
+                                                                fontSize='medium'
+                                                                className='dark:text-gray-300'
+                                                            ></NotificationsNoneOutlinedIcon>
+                                                        )}
+                                                    {item == 'notifications' &&
+                                                        active == 1 && (
+                                                            <NotificationsIcon
+                                                                fontSize='medium'
+                                                                className='text-white'
+                                                            ></NotificationsIcon>
+                                                        )}
+                                                </HeaderButton>
+                                            </Link>
                                         </li>
                                     );
                                 }),
