@@ -2,19 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App.tsx';
+import store from './store/index.ts';
+import { Provider } from 'react-redux';
 
-import {ActiveTabWrapper} from './store/activeTabContext.tsx';
-import {ActiveThemeWrapper} from './store/activeThemeContext.tsx';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
         <BrowserRouter>
-            <ActiveThemeWrapper>
-                <ActiveTabWrapper>
-                    <App />
-                </ActiveTabWrapper>
-            </ActiveThemeWrapper>
+            <Provider store = {store}>
+                <App />
+            </Provider>
         </BrowserRouter>
     </React.StrictMode>
 );

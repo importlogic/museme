@@ -6,19 +6,43 @@ import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNone
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 
-import activeTabContext from '../store/activeTabContext.tsx';
-import activeThemeContext from '../store/activeThemeContext.tsx';
 import HeaderButton from './HeaderButton.tsx';
 
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { activeThemeActions } from '../store/activeTheme.ts';
+import { activeTabActions } from '../store/activeTab.ts';
+import type { RootState } from '../store/index.ts';
+
+import { useLocation } from 'react-router-dom';
 
 const Header = () => {
     const searchBar = useRef<HTMLInputElement>(null);
     const [searchBarEmpty, setSearchBarEmpty] = useState(1);
 
-    const activeTab = useContext(activeTabContext);
-    const activeTheme = useContext(activeThemeContext);
+    const location = useLocation();
+    const dispatch = useDispatch();
+
+    const activeTab = useSelector((state: RootState) => state.activeTab.tab);
+    const activeTheme = useSelector(
+        (state: RootState) => state.activeTheme.theme
+    );
+
+    useEffect(() => {
+        const page = document.querySelector('html')!;
+
+        page.dataset.theme = activeTheme;
+        page.classList.value = activeTheme;
+
+        localStorage.setItem('museme-theme', activeTheme);
+    }, [activeTheme]);
+
+    useEffect(() => {
+        const tab = location.pathname.split('/')[1];
+        dispatch(activeTabActions.setTab(tab));
+    }, [location.pathname]);
 
     const clearSearchBarHandler = () => {
         const searchInput = searchBar.current;
@@ -43,10 +67,10 @@ const Header = () => {
     };
 
     const changeThemeHandler = () => {
-        if (activeTheme.theme == 'light') {
-            activeTheme.setTheme('dark');
+        if (activeTheme == 'light') {
+            dispatch(activeThemeActions.setTheme('dark'));
         } else {
-            activeTheme.setTheme('light');
+            dispatch(activeThemeActions.setTheme('light'));
         }
     };
 
@@ -87,7 +111,7 @@ const Header = () => {
                                 headerButtons.map((item) => {
                                     let active: number = 0;
 
-                                    if (item == activeTab.activeTab) {
+                                    if (item == activeTab) {
                                         active = 1;
                                     }
 
@@ -134,11 +158,11 @@ const Header = () => {
                             ]}
                         </ul>
 
-                        <label className='swap swap-rotate mr-2 outline-none'>
+                        <label className='swap-rotate swap mr-2 outline-none'>
                             <input
                                 type='checkbox'
                                 onChange={changeThemeHandler}
-                                checked={activeTheme.theme == 'light'}
+                                checked={activeTheme == 'light'}
                             />
 
                             <svg

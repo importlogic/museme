@@ -8,13 +8,13 @@ import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 
-import activeTabContext from '../store/activeTabContext';
-
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store/index';
+
 const LeftNavbar = () => {
-    const activeTab = useContext(activeTabContext);
+    const activeTab = useSelector((state: RootState) => state.activeTab.tab);
 
     const navBarButtons = ['home', 'chats', 'more'];
 
@@ -38,7 +38,7 @@ const LeftNavbar = () => {
                                 <Link to={`/${item}`}>
                                     <button
                                         className={`relative mr-4 mt-8 text-center text-sm font-semibold hover:cursor-pointer hover:text-blue-500 ${
-                                            activeTab.activeTab == item
+                                            activeTab == item
                                                 ? 'text-blue-500'
                                                 : 'text-gray-400'
                                         }`}
