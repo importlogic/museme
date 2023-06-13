@@ -8,41 +8,23 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 
 import HeaderButton from './HeaderButton.tsx';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { activeThemeActions } from '../store/activeTheme.ts';
-import { activeTabActions } from '../store/activeTab.ts';
 import type { RootState } from '../store/index.ts';
-
-import { useLocation } from 'react-router-dom';
 
 const Header = () => {
     const searchBar = useRef<HTMLInputElement>(null);
     const [searchBarEmpty, setSearchBarEmpty] = useState(1);
 
-    const location = useLocation();
     const dispatch = useDispatch();
 
     const activeTab = useSelector((state: RootState) => state.activeTab.tab);
     const activeTheme = useSelector(
         (state: RootState) => state.activeTheme.theme
     );
-
-    useEffect(() => {
-        const page = document.querySelector('html')!;
-
-        page.dataset.theme = activeTheme;
-        page.classList.value = activeTheme;
-
-        localStorage.setItem('museme-theme', activeTheme);
-    }, [activeTheme]);
-
-    useEffect(() => {
-        const tab = location.pathname.split('/')[1];
-        dispatch(activeTabActions.setTab(tab));
-    }, [location.pathname]);
 
     const clearSearchBarHandler = () => {
         const searchInput = searchBar.current;
