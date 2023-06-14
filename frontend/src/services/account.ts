@@ -14,7 +14,15 @@ export const loginAccount = async (email: string, password: string) => {
 };
 
 export const getUser = async () => {
-    const response = await account.get();
+    let response = await account.get();
+
+    if(response.prefs.setupDone === undefined) {
+        await account.updatePrefs({
+            setupDone: 'false'
+        });
+
+        response.prefs.setupDone = 'false';
+    }
 
     return response;
 };

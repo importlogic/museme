@@ -4,10 +4,15 @@ import musemePoster from '../assets/museme-poster.png';
 
 import { useState, useEffect, useRef, BaseSyntheticEvent } from 'react';
 import LoadingWheel from '../components/LoadingWheel.tsx';
+import ErrorMessage from '../components/ErrorMessage.tsx';
+import SuccessMessage from '../components/SuccessMessage.tsx';
 
 import { useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { createAccount, loginAccount } from '../services/account.ts';
+import { useDispatch } from 'react-redux';
+
+import { updateLoggedinStatus } from '../store/loginInfo.ts';
 
 const Login = () => {
     const [errorMessage, setErrorMessage] = useState('');
@@ -15,6 +20,8 @@ const Login = () => {
     const [emailInvalid, setemailInvalid] = useState(false);
     const [passwordInvalid, setpasswordInvalid] = useState(false);
     const [isLoading, setisLoading] = useState(false);
+
+    const dispatch = useDispatch();
 
     const type = useLocation().pathname.split('/')[1];
     const navigate = useNavigate();
@@ -84,8 +91,9 @@ const Login = () => {
         } else {
             try {
                 await loginAccount(email, password);
-
-                navigate('/home');
+                
+                //@ts-ignore
+                dispatch(updateLoggedinStatus());
             } catch (error: any) {
                 setErrorMessage(error.message);
 
@@ -108,7 +116,7 @@ const Login = () => {
             >
                 <source src={background} type='video/mp4' />
             </video>
-            <Container className='flex h-[70vh] overflow-hidden rounded-xl shadow-2xl backdrop-blur-lg'>
+            <Container className='flex h-[70vh] overflow-hidden rounded-xl shadow-2xl z-10'>
                 <img src={musemePoster} />
                 <Container className='flex w-[30rem] flex-col bg-white p-2 px-4 text-black'>
                     {isLoading && (
@@ -174,43 +182,8 @@ const Login = () => {
                 </Container>
             </Container>
 
-            {errorMessage.length > 0 && (
-                <div className='alert alert-error absolute bottom-4 right-4 w-auto ease-in-out'>
-                    <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        className='h-6 w-6 shrink-0 stroke-current'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                    >
-                        <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
-                        />
-                    </svg>
-                    <span>{errorMessage}</span>
-                </div>
-            )}
-
-            {successMessage.length > 0 && (
-                <div className='alert alert-success absolute bottom-4 right-4 w-auto ease-in-out'>
-                    <svg
-                        xmlns='http://www.w3.org/2000/svg'
-                        className='h-6 w-6 shrink-0 stroke-current'
-                        fill='none'
-                        viewBox='0 0 24 24'
-                    >
-                        <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
-                        />
-                    </svg>
-                    <span>{successMessage}</span>
-                </div>
-            )}
+            <ErrorMessage errorMessage={errorMessage}/>
+            <SuccessMessage successMessage={successMessage}/>
         </Container>
     );
 };

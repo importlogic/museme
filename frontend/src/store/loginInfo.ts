@@ -5,8 +5,11 @@ const initialState = {
     loggedIn: false,
     id: '',
     name: '',
+    username: '',
     email: '',
-    prefs: {},
+    prefs: {
+        setupDone: 'false'
+    }
 };
 
 const loginInfo = createSlice({
@@ -19,12 +22,16 @@ const loginInfo = createSlice({
                 state.id = action.payload.id;
                 state.name = action.payload.name;
                 state.email = action.payload.email;
-                state.prefs = action.payload.prefs;
+                state.username = action.payload.username;
+                state.prefs.setupDone = action.payload.prefs.setupDone;
             } else {
                 state.id = '';
                 state.name = '';
                 state.email = '';
-                state.prefs = {};
+                state.username = '';
+                state.prefs = {
+                    setupDone: 'false'
+                };
             }
         },
     },
@@ -46,6 +53,7 @@ export const updateLoggedinStatus = () => {
                     id: response.$id,
                     name: response.name,
                     email: response.email,
+                    username: response.username,
                     prefs: response.prefs,
                 })
             );

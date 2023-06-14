@@ -1,6 +1,7 @@
 import Museme from './pages/Museme.tsx';
 import Login from './pages/Login.tsx';
 import Landing from './pages/Landing.tsx';
+import ProfileSetup from './pages/ProfileSetup.tsx';
 
 import { activeTabActions } from './store/activeTab.ts';
 import { useLocation } from 'react-router-dom';
@@ -42,24 +43,84 @@ const App = () => {
         (state: RootState) => state.loginInfo.loggedIn
     );
 
+    const getSetupVal = useSelector(
+        (state: RootState) => state.loginInfo.prefs.setupDone
+    );
+
+    const setupDone = getSetupVal === 'true' ? true : false;
+
     return (
         <>
             <Routes>
                 <Route
+                    path='/profilesetup'
+                    element={
+                        loggedIn ? (
+                            setupDone ? (
+                                <Navigate to='/home' />
+                            ) : (
+                                <ProfileSetup />
+                            )
+                        ) : (
+                            <Navigate to='/' />
+                        )
+                    }
+                />
+                <Route
                     path='/login'
-                    element={loggedIn ? <Navigate to='/home' /> : <Login />}
+                    element={
+                        loggedIn ? (
+                            setupDone ? (
+                                <Navigate to='/home' />
+                            ) : (
+                                <Navigate to='/profilesetup' />
+                            )
+                        ) : (
+                            <Login />
+                        )
+                    }
                 />
                 <Route
                     path='/signup'
-                    element={loggedIn ? <Navigate to='/home' /> : <Login />}
+                    element={
+                        loggedIn ? (
+                            setupDone ? (
+                                <Navigate to='/home' />
+                            ) : (
+                                <Navigate to='/profilesetup' />
+                            )
+                        ) : (
+                            <Login />
+                        )
+                    }
                 />
                 <Route
                     path='/'
-                    element={loggedIn ? <Navigate to='/home' /> : <Landing />}
+                    element={
+                        loggedIn ? (
+                            setupDone ? (
+                                <Navigate to='/home' />
+                            ) : (
+                                <Navigate to='/profilesetup' />
+                            )
+                        ) : (
+                            <Landing />
+                        )
+                    }
                 />
                 <Route
                     path='*'
-                    element={loggedIn ? <Museme /> : <Navigate to='/' />}
+                    element={
+                        loggedIn ? (
+                            setupDone ? (
+                                <Museme />
+                            ) : (
+                                <Navigate to='/profilesetup' />
+                            )
+                        ) : (
+                            <Navigate to='/' />
+                        )
+                    }
                 />
             </Routes>
         </>
