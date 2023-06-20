@@ -17,6 +17,27 @@ client
     .setProject(process.env.PROJECT_ID)
     .setKey(process.env.API_KEY);
 
+router.post('/api/get-user', async (req, res) => {
+    try{
+        const response = await databases.listDocuments(
+            process.env.USER_DATABASE_ID,
+            process.env.USERINFO_COLLECTION_ID,
+            [Query.equal('userID', req.body.userID)]
+        );
+
+        res.send({
+            status: 'success',
+            body: response.documents[0]
+        })
+    }
+    catch(error){
+        res.send({
+            status: 'failed',
+            message: 'Something went wrong!'
+        })
+    }
+})
+
 router.post('/api/check-username', async (req, res) => {
     try {
         const response = await databases.listDocuments(

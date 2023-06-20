@@ -22,7 +22,22 @@ export const getUser = async () => {
         });
 
         response.prefs.setupDone = 'false';
-    }
+    }  
+
+    const userDetails = await fetch(import.meta.env.VITE_BACKEND_SERVER_URL + '/api/get-user', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userID: response.$id
+        })
+    })
+
+    const userDetailsJSON = await userDetails.json();
+
+    response.name = userDetailsJSON.body.name;
+    response.username = userDetailsJSON.body.username;
 
     return response;
 };

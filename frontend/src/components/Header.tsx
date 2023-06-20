@@ -26,6 +26,8 @@ const Header = () => {
         (state: RootState) => state.activeTheme.theme
     );
 
+    const currentUser = useSelector((state: RootState) => state.loginInfo.username);
+
     const clearSearchBarHandler = () => {
         const searchInput = searchBar.current;
 
@@ -99,7 +101,7 @@ const Header = () => {
 
                                     return (
                                         <li key={`${item}`}>
-                                            <Link to={`/${item}`}>
+                                            <Link to={`/${item}${item == 'profile' ? `/${currentUser}` : ``}`}>
                                                 <HeaderButton
                                                     active={active}
                                                     className='relative'

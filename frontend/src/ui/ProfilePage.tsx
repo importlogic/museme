@@ -4,11 +4,19 @@ import testimage from '../assets/dp.jpeg';
 
 import { useParams } from 'react-router-dom';
 
+import { useEffect } from 'react';
+
 const ProfilePage = () => {
     const param = useParams();
-    let username = param.username;
+    let username = param.username!;
 
-    console.log(username);
+    useEffect(() => {
+        const updatePage = async (username: string) => {
+            
+        }
+
+        updatePage(username);
+    }, []);
     
     return (
         <>
